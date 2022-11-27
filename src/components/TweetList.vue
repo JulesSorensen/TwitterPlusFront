@@ -17,7 +17,7 @@ export default {
                 {
                     id: 1,
                     authorId: 1,
-                    authorName: "JeanJeanJeanJeanJeanJeanJeanJeanJeanJeanJeanJeanJean",
+                    authorName: "JulesJulesJulesJulesJulesJulesJulesJulesJulesJulesJulesJulesJules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !Bonjour à tous !Bonjour à tous !Bonjour à tous !Bonjour à tous !Bonjour à tous !Bonjour à tous !Bonjour à tous !Bonjour à tous !Bonjour à tous !Bonjour à tous !",
                     readOnly: false,
@@ -27,7 +27,7 @@ export default {
                 {
                     id: 2,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -37,7 +37,7 @@ export default {
                 {
                     id: 3,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -47,7 +47,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -57,7 +57,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -67,7 +67,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -77,7 +77,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -87,7 +87,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -97,7 +97,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -107,7 +107,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -117,7 +117,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -127,7 +127,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -137,7 +137,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -147,7 +147,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -157,7 +157,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -167,7 +167,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,
@@ -177,7 +177,7 @@ export default {
                 {
                     id: 4,
                     authorId: 1,
-                    authorName: "Jean",
+                    authorName: "Jules",
                     authorPicture: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
                     content: "Bonjour à tous !",
                     readOnly: false,

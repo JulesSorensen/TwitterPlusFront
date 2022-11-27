@@ -31,7 +31,7 @@
                 class="bg-white hover:bg-blue-100 mt-2 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
 
             <router-link to="/login" class="mt-1 text-blue-200 underline italic">
-                J'ai déjà un comtpe !
+                J'ai déjà un compte !
             </router-link>
         </div>
     </div>
