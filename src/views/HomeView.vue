@@ -1,4 +1,5 @@
 <template>
+  <title>Accueil</title>
   <div class="flex flex-col lg:flex-row lg:justify-around w-screen h-screen lg:px-10 dark:bg-gray-900">
     <div class="flex flex-col w-full lg:w-fit lg:px-16 fixed lg:static">
       <img src="../assets/logo/icon.png" alt="TwitterPlus" class="w-[50px] mx-3 mt-1 hidden lg:block">

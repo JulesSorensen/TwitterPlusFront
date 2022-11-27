@@ -31,11 +31,11 @@
         <div class="flex flex-row">
             <div
                 class="flex flex-row justify-between space-x-3 items-center w-full my-1 p-3 rounded-full transition-all duration-300 hover:bg-black/50 hover:shadow-sm">
-                <div class="flex flex-row">
+                <div @click="goToProfile" class="flex flex-row">
                     <div class="h-6 w-6 rounded-full bg-red-100" />
                     <p class="ml-3 text-md font-semibold hidden lg:block dark:text-gray-200">Pseudo</p>
                 </div>
-                <div
+                <div @click="logout"
                     class="flex justify-center items-center w-[30px] h-[30px] p-1 rounded-full cursor-pointer hover:bg-red-200">
                     <i class="text-red-500 fa-lg fa-solid fa-right-from-bracket" />
                 </div>
@@ -66,6 +66,10 @@ export default {
         goToParameters() {
             this.$router.push('/settings');
         },
+        logout() {
+            localStorage.clear();
+            this.$router.push('/login')
+        }
     }
 }
 </script>
