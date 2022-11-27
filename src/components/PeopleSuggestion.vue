@@ -1,15 +1,15 @@
 <template>
-    <div class="flex flex-col justify-center my-auto bg-gray-100 rounded-md p-4">
-        <h2>Suggestions</h2>
+    <div class="flex flex-col justify-center my-auto bg-gray-100 dark:bg-gray-800 rounded-md p-4">
+        <h2 class="dark:text-gray-300 font-semibold">Suggestions</h2>
         <div class="w-full h-fit space-y-3 mt-3">
             <div class="flex flex-row justify-between" v-for="curUser in users" :key="curUser.id">
                 <div class="flex flex-row w-40 items-center space-x-1">
                     <div class="h-10 w-10">
                         <img class="rounded-full h-10 w-10" v-bind:src="curUser.userPicture" v-bind:alt="curUser.name">
                     </div>
-                    <p class="truncate">{{curUser.name}}</p>
+                    <p class="dark:text-gray-300 truncate">{{curUser.name}}</p>
                 </div>
-                <button class="rounded-lg">Suivre</button>
+                <button class="rounded-lg px-2 dark:bg-gray-300">Suivre</button>
             </div>
         </div>
     </div>

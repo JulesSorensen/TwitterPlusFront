@@ -27,11 +27,6 @@ const routes = [
     meta: { withoutAuth: true }
   },
   {
-    path: '/:catchAll(.*)*',
-    name: "notfound",
-    component: NotFoundView,
-  },
-  {
     path: '/',
     name: 'home',
     component: HomeView,
@@ -41,6 +36,11 @@ const routes = [
     name: 'settings',
     component: SettingsView,
   },
+  {
+    path: '/:catchAll(.*)*',
+    name: "notfound",
+    component: NotFoundView,
+  }
 ]
 
 const router = createRouter({
