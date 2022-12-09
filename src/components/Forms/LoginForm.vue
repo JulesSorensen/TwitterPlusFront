@@ -55,8 +55,27 @@ export default {
             if (this.props?.message) this.props.message = null;
 
             if (this.name && this.password) {
-                localStorage.setItem('token', "test");
-                return this.$router.push('/');
+                const res = await (await fetch('/authenticate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: this.name,
+                        password: this.password
+                    })
+                })).json()
+                console.log("r", res);
+                if (res.error) {
+                    if (res.message === 'Incorrect login or password') {
+                        this.error = "Nom ou mot de passe incorrect";
+                    } else {
+                        this.error = "Une erreur est survenue";
+                    }
+                } else {
+                    localStorage.setItem('token', res.token);
+                    return this.$router.push('/');
+                }
             }
 
             if (!this.name) {

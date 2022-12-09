@@ -16,19 +16,19 @@
         </div>
         <div class="flex flex-row justify-around w-full h-fit px-10">
             <div class="flex flex-row items-center space-x-3 group">
-                <i class="dark:text-gray-400 fa-regular fa-comment group-hover:text-gray-200" />
-                <p class="dark:text-gray-400 font-semibold group-hover:text-gray-200">0</p>
+                <i class="dark:text-gray-400 fa-regular fa-comment group-hover:text-gray-500 black:group-hover:text-gray-200" />
+                <p class="dark:text-gray-400 font-semibold group-hover:text-gray-500 black:group-hover:text-gray-200">0</p>
             </div>
             <div class="flex flex-row items-center space-x-3 group">
-                <i class="dark:text-gray-400 fa-solid fa-retweet group-hover:text-gray-200" />
-                <p class="dark:text-gray-400 font-semibold group-hover:text-gray-200">0</p>
+                <i class="dark:text-gray-400 fa-solid fa-retweet group-hover:text-gray-500 black:group-hover:text-gray-200" />
+                <p class="dark:text-gray-400 font-semibold group-hover:text-gray-500 black:group-hover:text-gray-200">0</p>
             </div>
             <div class="flex flex-row items-center space-x-3 group">
-                <i class="dark:text-gray-400 fa-regular fa-heart group-hover:text-gray-200" />
-                <p class="dark:text-gray-400 font-semibold group-hover:text-gray-200">0</p>
+                <i class="dark:text-gray-400 fa-regular fa-heart group-hover:text-gray-500 black:group-hover:text-gray-200" />
+                <p class="dark:text-gray-400 font-semibold group-hover:text-gray-500 black:group-hover:text-gray-200">0</p>
             </div>
             <div class="flex flex-row items-center space-x-3 group">
-                <i class="dark:text-gray-400 mr-3 fa-regular fa-bookmark group-hover:text-gray-200" />
+                <i class="dark:text-gray-400 mr-3 fa-regular fa-bookmark group-hover:text-gray-500 black:group-hover:text-gray-200" />
             </div>
         </div>
     </div>

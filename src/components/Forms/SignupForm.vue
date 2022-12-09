@@ -14,7 +14,9 @@
                 </div>
                 <div class="flex flex-col py-2 space-y-1">
                     <label for="name">Nom d'utilisateur</label>
-                    <input id="name" v-model="name" type="text" class="pl-2 rounded-lg shadow-md w-full">
+                    <input id="name" v-model="name" v-on:keyup="checkName" type="text"
+                        class="pl-2 rounded-lg shadow-md w-full">
+                    <p class="text-red-300" v-if="!nameAvailable">Ce nom n'est pas disponible</p>
                 </div>
                 <div class="flex flex-col py-2 space-y-1">
                     <label for="password">Mot de passe</label>
@@ -45,6 +47,7 @@ export default {
             error: null,
             email: null,
             name: null,
+            nameAvailable: false,
             password: null,
             passwordconfirmation: null
         }
@@ -79,6 +82,22 @@ export default {
         isEmail(mail) { // eslint-disable-next-line
             const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             return regex.test(mail);
+        },
+        async checkName() {
+            if (!this.name) {
+                return this.nameAvailable = false;
+            }
+            try {
+                const rr = await fetch("/accounts?name=" + this.name);
+                const r = await (rr).json();
+                if (r.error) {
+                    return this.nameAvailable = true;
+                } else {
+                    return this.nameAvailable = false;
+                }
+            } catch {
+                return this.nameAvailable = false;
+            }
         }
     }
 }

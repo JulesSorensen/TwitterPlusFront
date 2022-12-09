@@ -6,15 +6,15 @@
                 <i class="dark:text-gray-200 fa-xl w-[25px] fa-solid fa-house" />
                 <p class="dark:text-gray-200 ml-3 font-semibold text-2xl hidden lg:block">Accueil</p>
             </div>
-            <div @click="goToNotif"
-                class="flex flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm">
-                <i class="dark:text-gray-200 fa-xl w-[25px] fa-solid fa-bell" />
-                <p class="dark:text-gray-200 ml-3 font-semibold text-2xl hidden lg:block">Notifications</p>
-            </div>
             <div @click="goToBookmarks"
                 class="flex flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm">
                 <i class="dark:text-gray-200 fa-xl w-[25px] fa-solid fa-bookmark" />
                 <p class="dark:text-gray-200 ml-3 font-semibold text-2xl hidden lg:block">Signets</p>
+            </div>
+            <div @click="goToNotif"
+                class="flex flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm">
+                <i class="dark:text-gray-200 fa-xl w-[25px] fa-solid fa-chart-user" />
+                <p class="dark:text-gray-200 ml-3 font-semibold text-2xl hidden lg:block">Classement</p>
             </div>
             <div @click="goToProfile"
                 class="flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm hidden lg:flex">

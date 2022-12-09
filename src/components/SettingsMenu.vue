@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-col justify-evenly w-full lg:w-9/12 h-screen lg:h-full lg:h-full lg:border-x-[1px] border-solid border-gray-600 bg-gray-100 dark:bg-gray-800">
+        class="flex flex-col overflow-auto justify-evenly w-full lg:w-9/12 h-screen lg:h-full lg:h-full lg:border-x-[1px] border-solid border-gray-600 bg-gray-100 dark:bg-gray-800">
         <div class="flex flex-col justify-center items-center">
             <h2 class="font-bold dark:text-gray-300 mt-5">Thème de l'application</h2>
             <div class="flex justify-center flex-col lg:flex-row mt-3 lg:space-x-10">
@@ -42,6 +42,21 @@
                     class="px-2 rounded border border-gray-600 dark:text-white dark:bg-gray-900 dark:border-gra-100">
                 <button
                     class="px-1 rounded font-semibold transition-all duration-500 bg-gray-300 dark:bg-blue-800 hover:tracking-wider hover:bg-gray-400 dark:hover:bg-blue-900">Changer</button>
+            </div>
+        </div>
+        <div class="flex flex-col justify-center items-center">
+            <h2 class="font-bold dark:text-gray-300 mt-5">Certification</h2>
+            <div class="w-[25rem]">
+                <p class="dark:text-gray-400">Sélectionner un motif valide afin de pouvoir effectuer une demande de certification de votre compte.</p>
+            </div>
+            <div class="mt-5 grid grid-rows-4 lg:grid-rows-2 grid-flow-col gap-x-36 gap-y-3">
+                <select class="px-2 rounded border border-gray-600 dark:text-white dark:bg-gray-900 dark:border-gra-100">
+                    <option value="1">Entreprise</option>
+                    <option value="1">Personnalitée</option>
+                    <option value="1">Personnalitée</option>
+                </select>
+                <button
+                    class="px-1 w-56 rounded font-semibold transition-all duration-500 bg-gray-300 dark:bg-blue-800 hover:tracking-wider hover:bg-gray-400 dark:hover:bg-blue-900">Envoyer la demande</button>
             </div>
         </div>
     </div>
