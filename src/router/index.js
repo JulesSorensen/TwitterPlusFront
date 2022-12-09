@@ -59,10 +59,23 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     if (localStorage.getItem('token')) {
-      next()
-      return
+      fetch('/checkToken', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      }).then((res) => {
+        res.json().then((data) => {
+          if(data.error) {
+            localStorage.removeItem('token')
+            next('/login')
+          } else {
+            next()
+          }
+        })
+      })
     }
-    next('/login')
   }
 })
 

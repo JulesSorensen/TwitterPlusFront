@@ -13,7 +13,7 @@
             </div>
             <div @click="goToNotif"
                 class="flex flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm">
-                <i class="dark:text-gray-200 fa-xl w-[25px] fa-solid fa-chart-user" />
+                <i class="dark:text-gray-200 fa-xl w-[25px] fa-solid fa-chart-gantt" />
                 <p class="dark:text-gray-200 ml-3 font-semibold text-2xl hidden lg:block">Classement</p>
             </div>
             <div @click="goToProfile"

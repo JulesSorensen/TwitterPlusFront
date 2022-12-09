@@ -65,7 +65,6 @@ export default {
                         password: this.password
                     })
                 })).json()
-                console.log("r", res);
                 if (res.error) {
                     if (res.message === 'Incorrect login or password') {
                         this.error = "Nom ou mot de passe incorrect";
