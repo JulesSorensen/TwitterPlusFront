@@ -8,7 +8,14 @@ import ProfileView from '../views/ProfileView.vue';
 
 const routes = [
   {
-    path: '/login/:message?',
+    path: '/login/:message',
+    name: 'loginn',
+    component: LoginView,
+    props: true,
+    meta: { withoutAuth: true }
+  },
+  {
+    path: '/login',
     name: 'login',
     component: LoginView,
     props: true,
@@ -26,9 +33,8 @@ const routes = [
     component: HomeView,
   },
   {
-    path: '/profile/:userName?',
+    path: '/profile',
     name: 'profile',
-    props: true,
     component: ProfileView,
   },
   {
@@ -61,14 +67,20 @@ router.beforeEach((to, from, next) => {
         }
       }).then((res) => {
         res.json().then((data) => {
-          if(data.error) {
+          if (data.error) {
             localStorage.removeItem('token')
             next('/login')
           } else {
             next()
           }
+        }).catch(() => {
+          next('/login')
         })
+      }).catch(() => {
+        next('/login')
       })
+    } else {
+      next('/login')
     }
   }
 })
