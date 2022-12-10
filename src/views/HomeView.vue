@@ -8,7 +8,10 @@
     <div class="w-full flex flex-col mt-16 lg:mt-0">
       <TweetCreation />
       <TweetListBar :followOnly="followOnly" :toggleFollowOnly="toggleFollowOnly" :reloadTweets="reloadTweets" />
-      <TweetList />
+      <div v-if="loaders.tweets" class="flex justify-center items-center w-full h-full">
+        <i class="fa-2xl fa-solid fa-spinner animate-spin text-gray-800 dark:text-gray-200" />
+      </div>
+      <TweetList v-else :tweets="tweets" />
     </div>
     <div class="flex flex-col hidden lg:flex space-y-13 w-fit h-full pt-10 px-16 flex">
       <TweetSearch />
@@ -38,16 +41,34 @@ export default {
   },
   data() {
     return {
-      followOnly: false
+      followOnly: false,
+      tweets: [],
+      loaders: {
+        tweets: true,
+        suggestions: true,
+        self: true
+      }
     }
   },
   methods: {
     toggleFollowOnly() {
       this.followOnly = !this.followOnly;
     },
-    reloadTweets() {
-      
+    async reloadTweets() {
+      const res = await (await fetch('/tweets', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })).json();
+
+      this.tweets = res;
+      this.loaders.tweets = false;
     }
+  },
+  async mounted() {
+    this.reloadTweets();
   }
 }
 </script>

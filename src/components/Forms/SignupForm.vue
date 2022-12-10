@@ -58,7 +58,7 @@ export default {
                 return this.$router.push({
                     name: 'login',
                     state: {
-                        message: "Veuillez désormais vous connecter"
+                        message: "newuser"
                     }
                 });
             }
@@ -88,8 +88,7 @@ export default {
                 return this.nameAvailable = false;
             }
             try {
-                const rr = await fetch("/accounts?name=" + this.name);
-                const r = await (rr).json();
+                const r = await (await fetch("/nameAvailability?name=" + this.name)).json();
                 if (r.error) {
                     return this.nameAvailable = true;
                 } else {

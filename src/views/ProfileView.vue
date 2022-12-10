@@ -6,7 +6,7 @@
       <LeftMenu />
     </div>
     <div class="flex flex-col w-full mt-16 lg:mt-0">
-      <ProfileTop />
+      <ProfileTop :loading="loaders.profile" :user="account" :userName="userName" />
       <TweetList />
     </div>
   </div>
@@ -24,6 +24,58 @@ export default {
     LeftMenu,
     TweetList,
     ProfileTop
+  },
+  props: {
+    userName: {
+      type: String,
+      required: false
+    }
+  },
+  data() {
+    return {
+      account: [],
+      tweets: [],
+      loaders: {
+        tweets: true,
+        profile: true
+      }
+    }
+  },
+  methods: {
+    async reloadTweets() {
+      const res = await (await fetch('/tweets', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })).json();
+
+      this.tweets = res;
+      this.loaders.tweets = false;
+    },
+    async reloadProfile() {
+      let url = '/accounts';
+      if (this.userName) url += `/${this.userName}`;
+
+      const res = await (await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })).json();
+
+      console.log(res);
+
+      this.account = res;
+      this.loaders.profile = false;
+    }
+  },
+  async mounted() {
+    await this.reloadTweets();
+    await this.reloadProfile();
   }
+
 }
 </script>
