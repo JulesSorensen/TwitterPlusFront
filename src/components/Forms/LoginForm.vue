@@ -4,7 +4,7 @@
         <h1 class="text-lg font-bold underline mb-3">Espace de connexion</h1>
         <div class="flex flex-col">
             <div class="flex flex-row" v-if="message">
-                <p class="message font-semibold text-red-700 border-solid">{{ message }}</p>
+                <p class="message font-semibold text-green-700 border-solid">{{ message }}</p>
             </div>
 
             <div class="flex flex-row" v-if="error">

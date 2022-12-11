@@ -7,27 +7,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <link rel="stylesheet" href="./css/fontawesome/css/all.min.css">
-  <script src="./js/tailwind.js"></script>
   <script>
-    // config
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            'primary': '#1a202c',
-            'secondary': '#2d3748',
-            'accent': '#ed8936',
-            'success': '#48bb78',
-            'info': '#4299e1',
-            'warning': '#ed8936',
-            'danger': '#e53e3e',
-            'light': '#f7fafc',
-            'dark': '#1a202c'
-          }
-        }
-      }
-    }
     // dark mode
     if (localStorage.theme === 'dark') {
       document.documentElement.classList.add('dark')

@@ -8,14 +8,7 @@ import ProfileView from '../views/ProfileView.vue';
 
 const routes = [
   {
-    path: '/login/:message',
-    name: 'loginn',
-    component: LoginView,
-    props: true,
-    meta: { withoutAuth: true }
-  },
-  {
-    path: '/login',
+    path: '/login/:type?',
     name: 'login',
     component: LoginView,
     props: true,
@@ -33,9 +26,10 @@ const routes = [
     component: HomeView,
   },
   {
-    path: '/profile',
+    path: '/profile/:userName?',
     name: 'profile',
     component: ProfileView,
+    props: true
   },
   {
     path: '/settings',

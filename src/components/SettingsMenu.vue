@@ -8,7 +8,7 @@
                     class="flex flex-row cursor-pointer items-center rounded-2xl space-x-5 bg-white p-3 border-2 border-black hover:bg-gray-200">
                     <div
                         class="flex justify-center items-center ml-1 bg-gray-200 rounded-full w-10 h-10 border-4 border-solid border-gray-800">
-                        <i v-if="defaultTheme" class="text-gray-900 fa-xl fa-solid fa-check"></i>
+                        <svg v-if="defaultTheme" class="fill-gray-900" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                     </div>
                     <p class="text-gray-800 pr-3 select-none">Par défaut</p>
                 </div>
@@ -16,7 +16,7 @@
                     class="flex flex-row cursor-pointer items-center rounded-2xl space-x-5 bg-gray-900 p-3 border-2 border-white hover:bg-gray-900/75">
                     <div
                         class="flex justify-center items-center ml-1 bg-gray-800 rounded-full w-10 h-10 border-4 border-solid border-gray-100">
-                        <i v-if="!defaultTheme" class="text-white fa-xl fa-solid fa-check"></i>
+                        <svg v-if="!defaultTheme" class="fill-white" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                     </div>
                     <p class="text-gray-200 pr-3 select-none">Bleu foncé</p>
                 </div>

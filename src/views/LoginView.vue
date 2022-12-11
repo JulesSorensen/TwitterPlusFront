@@ -16,13 +16,26 @@ import LoginForm from '@/components/Forms/LoginForm.vue'
 export default {
     name: 'LoginView',
     props: {
-        message: {
+        type: {
             type: String,
             required: false
         }
     },
+    data() {
+        return {
+            message: this.type
+        }
+    },
     components: {
         LoginForm
+    },
+    methods: {
+        changeMessage() {
+            if(this.type && this.type == "justsu") this.message = "Merci de votre inscription, vous pouvez maintenant vous connecter !"
+        }
+    },
+    mounted() {
+        this.changeMessage()
     }
 }
 </script>

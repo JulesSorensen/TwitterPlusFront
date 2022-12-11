@@ -13,10 +13,10 @@
                     class="absolute rounded-full border-4 border-gray-100 dark:border-gray-800 h-20 w-20 bg-white left-1 bottom-[-30px]">
                     <div class="relative overflow-hidden inline-block rounded-full h-full w-full">
                         <img v-if="!!user.picture" class="bg-center block absolute w-full" v-bind:src="user.picture"
-                            alt="">
+                            alt="Profile picture">
                         <img v-else class="bg-center block absolute w-full"
                             src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
-                            alt="">
+                            alt="Profile picture">
                     </div>
                 </div>
             </div>
