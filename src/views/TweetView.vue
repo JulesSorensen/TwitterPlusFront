@@ -1,12 +1,11 @@
 <template>
-  <title>{{ userName ?? "Mon profil" }}</title>
+  <title>Tweet</title>
   <div class="flex flex-col lg:flex-row lg:justify-around w-screen h-screen lg:px-10 dark:bg-gray-900">
     <div class="flex flex-col w-full lg:w-fit lg:px-16 fixed lg:static">
       <img src="../assets/logo/icon.png" alt="TwitterPlus" class="w-[50px] mx-3 mt-1 hidden lg:block">
       <LeftMenu />
     </div>
-    <div class="flex flex-col w-full mt-16 lg:mt-0">
-      <ProfileTop :invalidUser="invalidUser" :loading="loaders.profile" :user="account" :userName="userName" />
+    <div class="w-full flex flex-col mt-16 lg:px-10 lg:mt-0">
       <div v-if="loaders.tweets" class="flex justify-center items-center w-full h-full">
         <svg class="animate-spin fill-gray-800 dark:fill-gray-200" width="30px" height="30px"
           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -14,47 +13,56 @@
             d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z" />
         </svg>
       </div>
-      <TweetList :tweets="tweets" />
+      <div class="flex flex-col h-full" v-else>
+        <TweetTemplate :tweet="tweets.original" />
+        <TweetCreation :postTweet="postTweet" :isComment="true" />
+        <TweetList :tweets="tweets.responses" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+// @ is an alias to /src
 import LeftMenu from '@/components/Layout/Bars/Nav/LeftMenu.vue';
 import TweetList from '@/components/TweetList.vue';
-import ProfileTop from '@/components/ProfileTop.vue';
+import TweetTemplate from '@/components/TweetTemplate.vue';
+import TweetCreation from '@/components/TweetCreation.vue';
 
 export default {
-  name: 'ProfileView',
+  name: 'TweetView',
   components: {
     LeftMenu,
     TweetList,
-    ProfileTop
+    TweetTemplate,
+    TweetCreation
   },
   props: {
-    userName: {
+    tweetId: {
       type: String,
-      required: false
+      required: true
     }
   },
   data() {
     return {
-      account: [],
-      tweets: [],
-      invalidUser: false,
+      followOnly: false,
+      tweets: {},
       loaders: {
         tweets: true,
-        profile: true
+        suggestions: true,
+        self: true
       }
     }
   },
   methods: {
+    toggleFollowOnly() {
+      this.followOnly = !this.followOnly;
+    },
     async reloadTweets() {
-      if (this.invalidUser) return;
-      const res = await (await fetch(`/accoutsTweets/${this.account.id}`, {
+      const res = await (await fetch(`/tweets/${this.tweetId}`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       })).json();
@@ -62,33 +70,35 @@ export default {
       this.tweets = res;
       this.loaders.tweets = false;
     },
-    async reloadProfile() {
-      let url = '/accounts';
-      if (this.userName) url += `/${this.userName}`;
-
-      const res = await (await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      })).json();
+    async postTweet(tweetContent) {
+      if (!tweetContent) return;
+      if (tweetContent.length > 300) return alert('Tweet is too long!');
       
-      if (res.error) {
-        this.invalidUser = true;
-        this.loaders.profile = false;
-        return;
-      }
+      await (await fetch('/tweets', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          content: tweetContent,
+          parentId: this.tweetId
+        })
+      })).json();
 
-      this.account = res;
-      this.loaders.profile = false;
-
+      await this.reloadTweets();
     }
   },
   async mounted() {
-    await this.reloadProfile();
-    await this.reloadTweets();
+    if (!this.tweetId || parseInt(this.tweetId) < 1) {
+      this.$router.push('/unknownTweet');
+    }
+    this.reloadTweets();
+  },
+  watch: {
+    tweetId() {
+      this.reloadTweets();
+    }
   }
-
 }
 </script>

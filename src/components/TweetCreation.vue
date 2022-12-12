@@ -1,12 +1,16 @@
 <template>
-    <div class="flex flex-col w-full h-fit pt-3 rounded-t-2xl border border-solid border-gray-600 dark:border-gray-800">
+    <div id="divComment">
         <div class="flex flex-row">
-            <div class="h-10 w-10 ml-2 rounded-full bg-red-100" />
+            <div class="h-[40px] w-[40px] ml-2 relative overflow-hidden inline-block rounded-full">
+                <img v-if="!user || !user.picture" class="bg-center block absolute w-full h-full"
+                    src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg" alt="bgImg">
+                <img v-else class="bg-center block absolute w-full" v-bind:src="user.picture" alt="bgImg">
+            </div>
             <textarea id="ta"
-                class="flex-1 ml-1 bg-transparent w-full min-h-10 h-auto focus:outline-0 resize-none dark:text-gray-100"
-                placeholder="Quoi d'neuf docteur ?" />
+                class="flex-1 ml-1 bg-transparent w-full min-h-10 h-auto focus:outline-0 resize-none dark:text-gray-100" />
         </div>
-        <TweetBottomBar :appendEmoji="appendToTextArea" :toggleCommentOnly="toggleCommentOnly" />
+        <TweetBottomBar :postTweet="sendTweet" :appendEmoji="appendToTextArea"
+            :toggleCommentOnly="toggleCommentOnly" />
     </div>
 </template>
   
@@ -16,7 +20,14 @@ import TweetBottomBar from '@/components/Layout/Bars/Tweet/TweetBottomBar.vue'
 export default {
     name: 'TweetCreation',
     props: {
-
+        isComment: {
+            type: Boolean,
+            default: false
+        },
+        postTweet: {
+            type: Function,
+            required: true
+        }
     },
     data() {
         let self = this;
@@ -31,8 +42,16 @@ export default {
         TweetBottomBar
     },
     methods: {
+        getTweetContent() {
+            return document.getElementById("ta").value;
+        },
+        sendTweet() {
+            const text = this.getTweetContent();
+            document.getElementById("ta").value = "";
+            return this.postTweet(text);
+        },
         appendToTextArea(text) {
-            document.getElementById("ta").value += ` ${text.i} `;
+            document.getElementById("ta").value += ` ${text.i}`;
         },
         resizeTextArea() {
             const elements = document.getElementsByTagName('textarea');
@@ -41,6 +60,15 @@ export default {
         },
         tCO() {
             this.commentOnly = !this.commentOnly;
+        },
+        getGlobalClass() {
+            if (this.isComment) {
+                document.querySelector("#divComment").classList.add("flex", "flex-col", "w-full", "h-fit", "pt-3", "border", "border-solid", "border-gray-600", "dark:border-gray-800");
+                document.getElementById("ta").setAttribute("placeholder", "Répondre au tweet");
+            } else {
+                document.querySelector("#divComment").classList.add("flex", "flex-col", "w-full", "h-fit", "pt-3", "rounded-t-2xl", "border", "border-solid", "border-gray-600", "dark:border-gray-800");
+                document.getElementById("ta").setAttribute("placeholder", "Quoi de neuf ?");
+            }
         }
     },
     mounted() {
@@ -48,6 +76,7 @@ export default {
             this.style.height = "auto";
             this.style.height = this.scrollHeight + "px";
         });
+        this.getGlobalClass();
     }
 }
 </script>

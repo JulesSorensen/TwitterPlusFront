@@ -4,8 +4,7 @@
             <img v-if="!!user.background" class="bg-center block absolute w-full" v-bind:src="user.background"
                 alt="bgImg">
             <img v-else class="bg-center block absolute w-full"
-                src="https://img.freepik.com/free-vector/smooth-white-wave-background_52683-55288.jpg"
-                alt="bgImg">
+                src="https://img.freepik.com/free-vector/smooth-white-wave-background_52683-55288.jpg" alt="bgImg">
         </div>
         <div class="w-full lg:w-3/4 bg-gray-200 dark:bg-gray-800/50">
             <div class="relative h-1">
@@ -22,18 +21,21 @@
             </div>
             <div>
                 <div class="ml-24 text-3xl">
-                    <h1 v-if="loading" class="font-bold dark:text-gray-300">{{userName}}</h1>
+                    <h1 v-if="loading" class="font-bold dark:text-gray-300">{{ userName }}</h1>
+                    <h1 v-else-if="invalidUser" class="font-bold dark:text-gray-300">Utilisateur invalide</h1>
                     <h1 v-else class="font-bold dark:text-gray-300">{{ user.name }}</h1>
                 </div>
             </div>
         </div>
-        <div class="bg-gray-200 dark:bg-gray-800/50 w-full lg:w-3/4">
+        <div v-if="!invalidUser" class="bg-gray-200 dark:bg-gray-800/50 w-full lg:w-3/4">
             <div class="flex flex-row justify-end pr-10 space-x-3 mt-3">
-                <button
+                <button v-if="user.self" @click="toggleEditionMode"
+                    class="rounded-lg px-2 w-36 py-1 text-lg font-bold tansition-all duration-500 bg-blue-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-blue-800">Modifier</button>
+                <button v-else @click="followUser"
                     class="rounded-lg px-2 w-36 py-1 text-lg font-bold tansition-all duration-500 bg-blue-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-blue-800">Suivre</button>
             </div>
         </div>
-        <div
+        <div v-if="!invalidUser"
             class="flex flex-row w-full lg:w-3/4 pl-10 pb-5 space-x-10 lg:rounded-b-md bg-gray-200 dark:bg-gray-800/50">
             <div class="flex flex-row items-center space-x-1">
                 <p v-if="loading" class="font-semibold dark:text-white">?</p>
@@ -59,6 +61,11 @@
 
 export default {
     name: 'ProfileTop',
+    data() {
+        return {
+            isEditionMode: false
+        }
+    },
     props: {
         loading: {
             type: Boolean,
@@ -71,6 +78,18 @@ export default {
         userName: {
             type: String,
             required: true
+        },
+        invalidUser: {
+            type: Boolean,
+            required: true
+        }
+    },
+    methods: {
+        toggleEditionMode() {
+            this.isEditionMode = !this.isEditionMode;
+            this.$router.push({ name: 'ProfileEdition', params: { id: this.user.id } });
+        },
+        async followUser() {
         }
     }
 }

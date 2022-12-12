@@ -5,6 +5,7 @@ import SignupView from '../views/SignupView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import SettingsView from '../views/SettingsView.vue';
 import ProfileView from '../views/ProfileView.vue';
+import TweetView from '../views/TweetView.vue';
 
 const routes = [
   {
@@ -24,6 +25,12 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
+  },
+  {
+    path: '/tweet/:tweetId?',
+    name: 'tweet',
+    component: TweetView,
+    props: true
   },
   {
     path: '/profile/:userName?',

@@ -1,5 +1,5 @@
 <template>
-    <div id="allTweets" class="flex flex-col w-full h-screen lg:h-full">
+    <div id="allTweets" class="flex flex-col w-full h-fit lg:h-fit">
         <div v-for="curTweet in tweets" :key="curTweet.id" class="w-full h-fit">
             <TweetTemplate :tweet="curTweet" />
         </div>
