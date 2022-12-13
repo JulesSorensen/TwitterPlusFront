@@ -45,10 +45,10 @@ export default {
         getTweetContent() {
             return document.getElementById("ta").value;
         },
-        sendTweet() {
+        async sendTweet() {
             const text = this.getTweetContent();
+            if (await this.postTweet(text) === false) return;
             document.getElementById("ta").value = "";
-            return this.postTweet(text);
         },
         appendToTextArea(text) {
             document.getElementById("ta").value += ` ${text.i}`;

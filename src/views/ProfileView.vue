@@ -14,7 +14,7 @@
             d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z" />
         </svg>
       </div>
-      <TweetList :tweets="tweets" />
+      <TweetList :tweets="tweets" :tweetDeleted="tweetDeleted" />
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      account: [],
+      account: {},
       tweets: [],
       invalidUser: false,
       loaders: {
@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     async reloadTweets() {
+      this.loaders.tweets = true;
       if (this.invalidUser) return;
       const res = await (await fetch(`/accoutsTweets/${this.account.id}`, {
         method: 'GET',
@@ -63,6 +64,7 @@ export default {
       this.loaders.tweets = false;
     },
     async reloadProfile() {
+      this.loaders.profile = true;
       let url = '/accounts';
       if (this.userName) url += `/${this.userName}`;
 
@@ -73,22 +75,30 @@ export default {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       })).json();
-      
+
       if (res.error) {
         this.invalidUser = true;
-        this.loaders.profile = false;
-        return;
+      } else {
+        this.account = res;
       }
-
-      this.account = res;
       this.loaders.profile = false;
-
-    }
+    },
+    tweetDeleted(id) {
+      this.tweets = this.tweets.filter(tweet => tweet.id !== id);
+    },
   },
   async mounted() {
     await this.reloadProfile();
     await this.reloadTweets();
+  },
+  watch: {
+    async userName() {
+      this.tweets = [];
+      this.account = {};
+      this.invalidUser = false;
+      await this.reloadProfile();
+      await this.reloadTweets();
+    }
   }
-
 }
 </script>

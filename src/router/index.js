@@ -6,6 +6,7 @@ import NotFoundView from '../views/NotFoundView.vue';
 import SettingsView from '../views/SettingsView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import TweetView from '../views/TweetView.vue';
+import BookmarkView from '../views/BookmarkView.vue';
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     name: 'tweet',
     component: TweetView,
     props: true
+  },
+  {
+    path: '/bookmarks',
+    name: 'bookmarks',
+    component: BookmarkView
   },
   {
     path: '/profile/:userName?',

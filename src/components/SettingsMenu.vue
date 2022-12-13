@@ -4,7 +4,7 @@
         <div class="flex flex-col justify-center items-center">
             <h2 class="font-bold dark:text-gray-300 mt-5">Thème de l'application</h2>
             <div class="flex justify-center flex-col lg:flex-row mt-3 lg:space-x-10">
-                <div @click="switchThemeWhite"
+                <div v-on:click="switchThemeWhite"
                     class="flex flex-row cursor-pointer items-center rounded-2xl space-x-5 bg-white p-3 border-2 border-black hover:bg-gray-200">
                     <div
                         class="flex justify-center items-center ml-1 bg-gray-200 rounded-full w-10 h-10 border-4 border-solid border-gray-800">
@@ -12,7 +12,7 @@
                     </div>
                     <p class="text-gray-800 pr-3 select-none">Par défaut</p>
                 </div>
-                <div @click="switchThemeBlack"
+                <div v-on:click="switchThemeBlack"
                     class="flex flex-row cursor-pointer items-center rounded-2xl space-x-5 bg-gray-900 p-3 border-2 border-white hover:bg-gray-900/75">
                     <div
                         class="flex justify-center items-center ml-1 bg-gray-800 rounded-full w-10 h-10 border-4 border-solid border-gray-100">

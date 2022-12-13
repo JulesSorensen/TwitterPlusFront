@@ -14,7 +14,7 @@
         </div>
         <div class="flex flex-row items-center space-x-3 mr-5">
             <TweetTypeSelector :toggleCommentOnly="toggleCommentOnly" />
-            <button @click="postTweet"
+            <button v-on:click="postTweet"
                 class="rounded-2xl px-3 py-1 shadow-sm bg-blue-300 transition-all duration-300 hover:bg-blue-500">Tweeter</button>
         </div>
     </div>

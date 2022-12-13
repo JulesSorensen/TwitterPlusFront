@@ -1,5 +1,5 @@
 <template>
-  <title>Tweet</title>
+  <title>Signets</title>
   <div class="flex flex-col lg:flex-row lg:justify-around w-screen h-screen lg:px-10 dark:bg-gray-900">
     <div class="flex flex-col w-full lg:w-fit lg:px-16 fixed lg:static">
       <img src="../assets/logo/icon.png" alt="TwitterPlus" class="w-[50px] mx-3 mt-1 hidden lg:block">
@@ -14,9 +14,7 @@
         </svg>
       </div>
       <div class="flex flex-col h-full" v-else>
-        <TweetTemplate :tweet="tweets.original" />
-        <TweetCreation :postTweet="postTweet" :isComment="true" />
-        <TweetList :tweets="tweets.responses" :tweetDeleted="tweetDeleted" />
+        <TweetList :tweets="tweets" />
       </div>
     </div>
   </div>
@@ -26,31 +24,18 @@
 // @ is an alias to /src
 import LeftMenu from '@/components/Layout/Bars/Nav/LeftMenu.vue';
 import TweetList from '@/components/TweetList.vue';
-import TweetTemplate from '@/components/TweetTemplate.vue';
-import TweetCreation from '@/components/TweetCreation.vue';
 
 export default {
-  name: 'TweetView',
+  name: 'BookmarkView',
   components: {
     LeftMenu,
-    TweetList,
-    TweetTemplate,
-    TweetCreation
-  },
-  props: {
-    tweetId: {
-      type: String,
-      required: true
-    }
+    TweetList
   },
   data() {
     return {
-      followOnly: false,
-      tweets: {},
+      tweets: [],
       loaders: {
-        tweets: true,
-        suggestions: true,
-        self: true
+        tweets: true
       }
     }
   },
@@ -58,56 +43,22 @@ export default {
     toggleFollowOnly() {
       this.followOnly = !this.followOnly;
     },
-    tweetDeleted(id) {
-      this.tweets.responses = this.tweets.responses.filter(tweet => tweet.id !== id);
-      this.tweets.original.commentsNb--;
-    },
     async reloadTweets() {
       this.loaders.tweets = true;
-      const res = await (await fetch(`/tweets/${this.tweetId}`, {
+      const res = await (await fetch(`/bookmarks`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       })).json();
-
+      console.log(res);
       this.tweets = res;
       this.loaders.tweets = false;
-    },
-    async postTweet(tweetContent) {
-      if (!tweetContent) return;
-      if (tweetContent.length > 300) {
-        this.$toast.error(`Votre tweet est trop long`);
-        return false;
-      }
-      
-      await (await fetch('/tweets', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          content: tweetContent,
-          parentId: this.tweetId
-        })
-      })).json();
-
-      await this.reloadTweets();
-      return true;
     }
   },
   async mounted() {
-    if (!this.tweetId || parseInt(this.tweetId) < 1) {
-      this.$router.push('/unknownTweet');
-    }
     this.reloadTweets();
-  },
-  watch: {
-    tweetId() {
-      this.reloadTweets();
-    }
   }
 }
 </script>

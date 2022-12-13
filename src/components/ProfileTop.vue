@@ -29,9 +29,9 @@
         </div>
         <div v-if="!invalidUser" class="bg-gray-200 dark:bg-gray-800/50 w-full lg:w-3/4">
             <div class="flex flex-row justify-end pr-10 space-x-3 mt-3">
-                <button v-if="user.self" @click="toggleEditionMode"
+                <button v-if="user.self" v-on:click="toggleEditionMode"
                     class="rounded-lg px-2 w-36 py-1 text-lg font-bold tansition-all duration-500 bg-blue-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-blue-800">Modifier</button>
-                <button v-else @click="followUser"
+                <button v-else v-on:click="followUser"
                     class="rounded-lg px-2 w-36 py-1 text-lg font-bold tansition-all duration-500 bg-blue-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-blue-800">Suivre</button>
             </div>
         </div>

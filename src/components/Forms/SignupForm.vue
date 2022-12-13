@@ -29,7 +29,14 @@
                 </div>
             </div>
 
-            <input v-on:click="checkForm" type="submit" value="S'inscrire"
+            <div v-if="loarders.signup" class="flex justify-center items-center w-full my-2">
+                <svg class="animate-spin fill-gray-800 dark:fill-gray-200" width="30px" height="30px"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path
+                        d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z" />
+                </svg>
+            </div>
+            <input v-else v-on:click="checkForm" type="submit" value="S'inscrire"
                 class="bg-white hover:bg-blue-100 mt-2 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
 
             <router-link to="/login" class="mt-1 text-blue-200 underline italic">
@@ -49,18 +56,42 @@ export default {
             name: null,
             nameAvailable: false,
             password: null,
-            passwordconfirmation: null
+            passwordconfirmation: null,
+            loarders: {
+                signup: false
+            }
         }
     },
     methods: {
         async checkForm(e) {
+            this.loarders.signup = true;
             if (this.name && this.email && this.isEmail(this.email) && this.password && this.passwordconfirmation && this.password === this.passwordconfirmation) {
-                return this.$router.push({
-                    name: 'login',
-                    state: {
-                        message: "newuser"
+                const res = await (await fetch('/accounts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: this.email,
+                        name: this.name,
+                        password: this.password
+                    })
+                })).json();
+
+                if (res.error) {
+                    if (res.message === "Account already exists") {
+                        this.error = "Un compte avec ces identifiants existe déjà";
+                    } else {
+                        this.error = "Une erreur est survenue";
                     }
-                });
+                } else {
+                    return this.$router.push({
+                        name: 'login',
+                        state: {
+                            type: "justsu"
+                        }
+                    });
+                }
             }
 
             if (!this.email) {
@@ -77,6 +108,7 @@ export default {
                 this.error = 'Les mots de passe ne correspondent pas';
             }
 
+            this.loarders.signup = false;
             e.preventDefault();
         },
         isEmail(mail) { // eslint-disable-next-line

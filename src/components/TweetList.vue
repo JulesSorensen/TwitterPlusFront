@@ -1,7 +1,7 @@
 <template>
     <div id="allTweets" class="flex flex-col w-full h-fit lg:h-fit">
         <div v-for="curTweet in tweets" :key="curTweet.id" class="w-full h-fit">
-            <TweetTemplate :tweet="curTweet" />
+            <TweetTemplate :tweet="curTweet" :tweetDeleted="tweetDeleted" />
         </div>
     </div>
 </template>
@@ -15,6 +15,10 @@ export default {
         tweets: {
             type: Array,
             required: true
+        },
+        tweetDeleted: {
+            type: Function,
+            required: false
         }
     },
     components: {

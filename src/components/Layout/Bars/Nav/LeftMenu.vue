@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-row lg:flex-col justify-between w-full h-full select-none">
         <div class="flex flex-row lg:flex-col">
-            <div @click="goToHome"
+            <div v-on:click="goToHome"
                 class="flex flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm">
                 <svg class="dark:fill-gray-200" width="25px" height="25px" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 576 512">
@@ -10,7 +10,7 @@
                 </svg>
                 <p class="dark:text-gray-200 ml-3 font-semibold text-2xl hidden lg:block">Accueil</p>
             </div>
-            <div @click="goToBookmarks"
+            <div v-on:click="goToBookmarks"
                 class="flex flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm">
                 <svg class="dark:fill-gray-200" width="25px" height="25px" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 384 512">
@@ -19,7 +19,7 @@
                 </svg>
                 <p class="dark:text-gray-200 ml-3 font-semibold text-2xl hidden lg:block">Signets</p>
             </div>
-            <div @click="goToNotif"
+            <div v-on:click="goToLeaderboard"
                 class="flex flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm">
                 <svg class="dark:fill-gray-200" width="25px" height="25px" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512">
@@ -28,7 +28,7 @@
                 </svg>
                 <p class="dark:text-gray-200 ml-3 font-semibold text-2xl hidden lg:block">Classement</p>
             </div>
-            <div @click="goToProfile"
+            <div v-on:click="goToProfile"
                 class="flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm hidden lg:flex">
                 <svg class="dark:fill-gray-200" width="25px" height="25px" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512">
@@ -37,7 +37,7 @@
                 </svg>
                 <p class="dark:text-gray-200 ml-3 font-semibold text-2xl">Profil</p>
             </div>
-            <div @click="goToParameters"
+            <div v-on:click="goToParameters"
                 class="flex flex-row cursor-pointer items-center w-fit my-1 py-3 px-5 rounded-full transition-all duration-500 hover:bg-blue-200 dark:hover:bg-blue-900 hover:shadow-sm">
                 <svg class="dark:fill-gray-200" width="25px" height="25px" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512">
@@ -51,7 +51,7 @@
         <div class="flex flex-row">
             <div
                 class="flex flex-row max-w-[200px] space-x-3 items-center w-full my-1 p-3 rounded-full transition-all duration-500 hover:tracking-wider hover:bg-black/50 hover:shadow-sm">
-                <div @click="goToProfile" class="flex flex-row w-full">
+                <div v-on:click="goToProfile" class="flex flex-row w-full">
                     <div class="h-[25px] w-[25px] relative overflow-hidden inline-block rounded-full">
                         <img v-if="!user || !user.picture" class="bg-center block absolute w-full h-full"
                             src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
@@ -64,7 +64,7 @@
                         {{ user.name }}
                     </p>
                 </div>
-                <div @click="logout"
+                <div v-on:click="logout"
                     class="flex justify-center items-center w-[30px] h-[30px] p-1 rounded-full cursor-pointer hover:bg-red-200">
                     <svg class="fill-red-500" width="20px" height="20px" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512">
@@ -87,8 +87,8 @@ export default {
         goToHome() {
             this.$router.push('/');
         },
-        goToNotif() {
-            this.$router.push('/notifications');
+        goToLeaderboard() {
+            this.$router.push('/leaderboard');
         },
         goToBookmarks() {
             this.$router.push('/bookmarks');
