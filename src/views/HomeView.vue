@@ -15,7 +15,7 @@
             d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z" />
         </svg>
       </div>
-      <TweetList v-else :tweets="tweets" :tweetDeleted="tweetDeleted" />
+      <TweetList v-else :tweets="tweets" :tweetDeleted="tweetDeleted" :onRetweet="onRetweet" />
     </div>
     <div class="flex-col hidden lg:flex space-y-13 w-fit h-full pt-10 px-16">
       <TweetSearch />
@@ -57,18 +57,29 @@ export default {
   methods: {
     toggleFollowOnly() {
       this.followOnly = !this.followOnly;
+      this.loaders.tweets = true;
+      this.reloadTweets();
     },
     tweetDeleted(id) {
       this.tweets = this.tweets.filter(tweet => tweet.id !== id);
     },
     async reloadTweets() {
-      const res = await (await fetch('/tweets', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      })).json();
+      let res = [];
+      if (!this.followOnly) {
+        res = await (await fetch('/tweets', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        })).json();
+      } else {
+        res = await (await fetch('/myTweets', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        })).json();
+      }
 
       this.tweets = res;
       this.loaders.tweets = false;
@@ -94,6 +105,24 @@ export default {
 
       await this.reloadTweets();
       return true;
+    },
+    onRetweet(id, rtDeleted = false) {
+      if (rtDeleted) {
+        this.tweets = this.tweets.filter(tweet => tweet.retweetOfId !== id);
+      } else {
+        let retweetedTweet = this.tweets.find(tweet => tweet.id === id);
+        retweetedTweet = {
+          ...retweetedTweet,
+          self: false,
+          isRetweet: true,
+          retweetOfId: retweetedTweet.id,
+          retweeterName: "Vous",
+          retweeterSelf: true,
+          retweetCreatedAt: new Date().toISOString(),
+          retweeted: true
+        };
+        this.tweets = [retweetedTweet, ...this.tweets];
+      }
     }
   },
   async mounted() {

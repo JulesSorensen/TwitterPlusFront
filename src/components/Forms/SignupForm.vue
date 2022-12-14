@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-col h-full lg:w-[350px] justify-center bg-blue-500/50 shadow-lg shadow-inner px-10 lg:rounded-r-3xl lg:transition-all lg:duration-500 hover:lg:rounded-l-xl hover:lg:bg-blue-500/90 hover:lg:w-[400px]">
+        class="flex flex-col h-full lg:w-[350px] justify-center bg-blue-500/50 shadow-inner px-10 lg:rounded-r-3xl lg:transition-all lg:duration-500 hover:lg:rounded-l-xl hover:lg:bg-blue-500/90 hover:lg:w-[400px]">
         <h1 class="text-lg font-bold underline mb-3">Espace d'inscription</h1>
         <div class="flex flex-col">
             <div class="flex flex-row" v-if="error">
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div v-if="loarders.signup" class="flex justify-center items-center w-full my-2">
+            <div v-if="loaders.signup" class="flex justify-center items-center w-full my-2">
                 <svg class="animate-spin fill-gray-800 dark:fill-gray-200" width="30px" height="30px"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path
@@ -57,14 +57,14 @@ export default {
             nameAvailable: false,
             password: null,
             passwordconfirmation: null,
-            loarders: {
+            loaders: {
                 signup: false
             }
         }
     },
     methods: {
         async checkForm(e) {
-            this.loarders.signup = true;
+            this.loaders.signup = true;
             if (this.name && this.email && this.isEmail(this.email) && this.password && this.passwordconfirmation && this.password === this.passwordconfirmation) {
                 const res = await (await fetch('/accounts', {
                     method: 'POST',
@@ -98,6 +98,8 @@ export default {
                 this.error = 'Vous devez rentrer une adresse mail';
             } else if (!this.name) {
                 this.error = 'Vous devez rentrer un nom d\'utilisateur';
+            } else if (this.name.includes(' ')) {
+                this.error = 'Le nom d\'utilisateur ne peut pas contenir d\'espaces';
             } else if (!this.isEmail(this.email)) {
                 this.error = 'Vous devez rentrer une adresse mail valide';
             } else if (!this.password) {
@@ -108,7 +110,7 @@ export default {
                 this.error = 'Les mots de passe ne correspondent pas';
             }
 
-            this.loarders.signup = false;
+            this.loaders.signup = false;
             e.preventDefault();
         },
         isEmail(mail) { // eslint-disable-next-line

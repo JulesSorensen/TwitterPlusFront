@@ -8,7 +8,8 @@
                     d="M272 416c17.7 0 32-14.3 32-32s-14.3-32-32-32H160c-17.7 0-32-14.3-32-32V192h32c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-64-64c-12.5-12.5-32.8-12.5-45.3 0l-64 64c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8l32 0 0 128c0 53 43 96 96 96H272zM304 96c-17.7 0-32 14.3-32 32s14.3 32 32 32l112 0c17.7 0 32 14.3 32 32l0 128H416c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l64 64c12.5 12.5 32.8 12.5 45.3 0l64-64c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8l-32 0V192c0-53-43-96-96-96L304 96z" />
             </svg>
             <div class="flex flex-row items-center">
-                <p class="dark:text-gray-200 ml-3">Retweeté par {{ tweet.retweeterName }}</p>
+                <p v-if="tweet.retweeterSelf" class="dark:text-gray-200 ml-3">Vous avez retweeté</p>
+                <p v-else class="dark:text-gray-200 ml-3">Retweeté par {{ tweet.retweeterName }}</p>
                 <p class="mx-1 dark:text-gray-200">·</p>
                 <p class="text-sm w-[100px] min-w-[100px] dark:text-gray-200">{{ getTS(tweet.retweetCreatedAt) }}</p>
             </div>
@@ -17,8 +18,8 @@
             <div class="flex flex-row justify-between">
                 <div v-on:click="openUser" class="flex flex-row items-center ml-2">
                     <div class="h-10 w-10">
-                        <img v-if="!!tweet.authorPicture" class="rounded-full h-10 w-10"
-                            v-bind:src="tweet.authorPicture" v-bind:alt="tweet.authorName">
+                        <img v-if="!!tweet.picture" class="rounded-full h-10 w-10"
+                            v-bind:src="tweet.picture" v-bind:alt="tweet.authorName">
                         <img v-else class="rounded-full h-10 w-10"
                             src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg?w=740&t=st=1670177693~exp=1670178293~hmac=c9f02ed9f9fa0a02fd6803ab76c27e81c5d9da73dda5b61fb0833a554b1cf1d4"
                             v-bind:alt="tweet.authorName">
@@ -129,6 +130,10 @@ export default {
             required: true
         },
         tweetDeleted: {
+            type: Function,
+            required: false
+        },
+        onRetweet: {
             type: Function,
             required: false
         }
@@ -245,6 +250,7 @@ export default {
             if (!this.tweet.retweeted) {
                 this.tweet.retweetsNb += 1;
                 this.tweet.retweeted = true;
+                if (this.onRetweet) this.onRetweet(this.tweet.id);
                 await fetch('/retweets', {
                     method: 'POST',
                     headers: {
@@ -258,6 +264,7 @@ export default {
             } else {
                 this.tweet.retweetsNb -= 1;
                 this.tweet.retweeted = false;
+                if (this.onRetweet) this.onRetweet(this.tweet.id, true);
                 await fetch(`/retweets/${this.tweet.id}`, {
                     method: 'DELETE',
                     headers: {

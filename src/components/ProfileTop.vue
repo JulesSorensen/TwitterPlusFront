@@ -11,7 +11,7 @@
                 <div
                     class="absolute rounded-full border-4 border-gray-100 dark:border-gray-800 h-20 w-20 bg-white left-1 bottom-[-30px]">
                     <div class="relative overflow-hidden inline-block rounded-full h-full w-full">
-                        <img v-if="!!user.picture" class="bg-center block absolute w-full" v-bind:src="user.picture"
+                        <img v-if="!!user.picture" class="bg-center block absolute h-full" v-bind:src="user.picture"
                             alt="Profile picture">
                         <img v-else class="bg-center block absolute w-full"
                             src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
@@ -27,12 +27,33 @@
                 </div>
             </div>
         </div>
+        <div v-if="isEditionMode" class="bg-gray-200 dark:bg-gray-800/50 flex flex-col w-full lg:w-3/4">
+            <div class="flex flex-row items-center space-x-5">
+                <div class="ml-3">
+                    <label for="picture" class="dark:text-blue-500">Photo de profil</label>
+                    <input id="picture" v-model="picture" type="picture" class="pl-2 rounded-lg shadow-md w-full">
+                </div>
+                <button v-on:click="changePicture"
+                        class="rounded-lg align-middle px-2 w-36 h-10 py-1 text-lg font-bold tansition-all duration-500 bg-green-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-green-800">Sauvegarder</button>
+            </div>
+            <div class="flex flex-row items-center space-x-5">
+                <div class="ml-3">
+                    <label for="banner" class="dark:text-blue-500">Bannière</label>
+                    <input id="banner" v-model="banner" type="banner" class="pl-2 rounded-lg shadow-md w-full">
+                </div>
+                <button v-on:click="changeBackground"
+                        class="rounded-lg align-middle px-2 w-36 h-10 py-1 text-lg font-bold tansition-all duration-500 bg-green-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-green-800">Sauvegarder</button>
+            </div>
+        </div>
         <div v-if="!invalidUser" class="bg-gray-200 dark:bg-gray-800/50 w-full lg:w-3/4">
             <div class="flex flex-row justify-end pr-10 space-x-3 mt-3">
                 <button v-if="user.self" v-on:click="toggleEditionMode"
                     class="rounded-lg px-2 w-36 py-1 text-lg font-bold tansition-all duration-500 bg-blue-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-blue-800">Modifier</button>
-                <button v-else v-on:click="followUser"
-                    class="rounded-lg px-2 w-36 py-1 text-lg font-bold tansition-all duration-500 bg-blue-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-blue-800">Suivre</button>
+                <button v-else-if="user.subscribed" v-on:click="unsubscribeToUser"
+                    class="rounded-lg px-2 w-44 py-1 text-lg font-bold tansition-all duration-500 bg-red-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-red-800">Se
+                    désabonner</button>
+                <button v-else v-on:click="subscribeToUser"
+                    class="rounded-lg px-2 w-36 py-1 text-lg font-bold tansition-all duration-500 bg-blue-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-blue-800">S'abonner</button>
             </div>
         </div>
         <div v-if="!invalidUser"
@@ -52,7 +73,6 @@
                 <p v-else class="font-semibold dark:text-white">{{ user.likes }}</p>
                 <p class="text-sm text-gray-800/60 dark:text-gray-400/70">J'aimes</p>
             </div>
-
         </div>
     </div>
 </template>
@@ -63,7 +83,9 @@ export default {
     name: 'ProfileTop',
     data() {
         return {
-            isEditionMode: false
+            isEditionMode: false,
+            picture: this.user.picture,
+            banner: this.user.background
         }
     },
     props: {
@@ -82,14 +104,51 @@ export default {
         invalidUser: {
             type: Boolean,
             required: true
+        },
+        subscribeToUser: {
+            type: Function,
+            required: true
+        },
+        unsubscribeToUser: {
+            type: Function,
+            required: true
+        },
+        updatePicture: {
+            type: Function,
+            required: true
         }
     },
     methods: {
         toggleEditionMode() {
             this.isEditionMode = !this.isEditionMode;
-            this.$router.push({ name: 'ProfileEdition', params: { id: this.user.id } });
         },
-        async followUser() {
+        async changePicture() {
+            await fetch('/accounts', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: JSON.stringify({
+                    picture: this.picture
+                })
+            });
+            this.toggleEditionMode();
+            this.updatePicture(this.picture);
+        },
+        async changeBackground() {
+            await fetch('/accounts', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: JSON.stringify({
+                    background: this.banner
+                })
+            });
+            this.toggleEditionMode();
+            this.updatePicture(this.banner, true);
         }
     }
 }

@@ -52,7 +52,6 @@ export default {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       })).json();
-      console.log(res);
       this.tweets = res;
       this.loaders.tweets = false;
     }

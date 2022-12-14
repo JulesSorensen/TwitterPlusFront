@@ -56,7 +56,7 @@
                         <img v-if="!user || !user.picture" class="bg-center block absolute w-full h-full"
                             src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
                             alt="bgImg">
-                        <img v-else class="bg-center block absolute w-full" v-bind:src="user.picture" alt="bgImg">
+                        <img v-else class="bg-center block absolute h-full" v-bind:src="user.picture" alt="bgImg">
                     </div>
                     <div class="rounded-full bg-red-100" />
                     <p v-if="!!user"
@@ -100,6 +100,12 @@ export default {
             this.$router.push('/settings');
         },
         logout() {
+            fetch('/logout', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
             localStorage.removeItem('token');
             this.$router.push('/login')
         },
