@@ -18,15 +18,18 @@
             <div class="flex flex-row justify-between">
                 <div v-on:click="openUser" class="flex flex-row items-center ml-2">
                     <div class="h-10 w-10">
-                        <img v-if="!!tweet.picture" class="rounded-full h-10 w-10"
-                            v-bind:src="tweet.picture" v-bind:alt="tweet.authorName">
+                        <img v-if="!!tweet.picture" class="rounded-full h-10 w-10" v-bind:src="tweet.picture"
+                            v-bind:alt="tweet.name">
                         <img v-else class="rounded-full h-10 w-10"
                             src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg?w=740&t=st=1670177693~exp=1670178293~hmac=c9f02ed9f9fa0a02fd6803ab76c27e81c5d9da73dda5b61fb0833a554b1cf1d4"
-                            v-bind:alt="tweet.authorName">
+                            v-bind:alt="tweet.name">
                     </div>
                     <p class="truncate max-w-[10rem] ml-3 font-bold dark:text-gray-200">{{ tweet.name }}</p>
                     <p class="mx-1 dark:text-gray-200">·</p>
                     <p class="text-sm w-[100px] min-w-[100px] dark:text-gray-200">{{ getTS(tweet.createdAt) }}</p>
+                    <div v-if="tweet.certification" class="w-5 h-5 ml-1">
+                        <img src="../assets/img/certif.png" alt="CERTIFIE">
+                    </div>
                 </div>
                 <div class="flex flex-row space-x-2 mr-5">
                     <svg v-if="tweetDeletion == 1" v-on:click="resetDeletion"

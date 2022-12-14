@@ -62,7 +62,7 @@ export default {
                 document.getElementById("ta").setAttribute("placeholder", "Répondre au tweet");
             } else {
                 document.querySelector("#divComment").classList.add("flex", "flex-col", "w-full", "h-fit", "pt-3", "rounded-t-2xl", "border", "border-solid", "border-gray-600", "dark:border-gray-800");
-                document.getElementById("ta").setAttribute("placeholder", "Quoi de neuf ?");
+                document.getElementById("ta").setAttribute("placeholder", "Quoi de neuf docteur ?");
             }
         }
     },

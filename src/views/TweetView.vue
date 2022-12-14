@@ -55,9 +55,6 @@ export default {
     }
   },
   methods: {
-    toggleFollowOnly() {
-      this.followOnly = !this.followOnly;
-    },
     tweetDeleted(id) {
       this.tweets.responses = this.tweets.responses.filter(tweet => tweet.id !== id);
       this.tweets.original.commentsNb--;
@@ -75,13 +72,13 @@ export default {
       this.tweets = res;
       this.loaders.tweets = false;
     },
-    async postTweet(tweetContent) {
+    async postTweet(tweetContent, withComments = true) {
       if (!tweetContent) return;
       if (tweetContent.length > 300) {
         this.$toast.error(`Votre tweet est trop long`);
         return false;
       }
-      
+
       await (await fetch('/tweets', {
         method: 'POST',
         headers: {
@@ -90,7 +87,8 @@ export default {
         },
         body: JSON.stringify({
           content: tweetContent,
-          parentId: this.tweetId
+          parentId: this.tweetId,
+          withComments
         })
       })).json();
 

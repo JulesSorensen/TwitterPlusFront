@@ -150,6 +150,12 @@ export default {
             this.toggleEditionMode();
             this.updatePicture(this.banner, true);
         }
+    },
+    mounted() {
+        if (this.user.self) {
+            this.picture = this.user.picture;
+            this.banner = this.user.background;
+        }
     }
 }
 </script>

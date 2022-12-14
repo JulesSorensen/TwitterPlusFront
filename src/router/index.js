@@ -7,6 +7,7 @@ import SettingsView from '../views/SettingsView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import TweetView from '../views/TweetView.vue';
 import BookmarkView from '../views/BookmarkView.vue';
+import LeaderboardView from '../views/LeaderboardView.vue';
 
 const routes = [
   {
@@ -43,6 +44,11 @@ const routes = [
     name: 'profile',
     component: ProfileView,
     props: true
+  },
+  {
+    path: '/leaderboard',
+    name: 'leaderboard',
+    component: LeaderboardView,
   },
   {
     path: '/settings',

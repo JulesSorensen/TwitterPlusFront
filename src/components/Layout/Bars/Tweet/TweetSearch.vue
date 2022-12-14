@@ -13,7 +13,7 @@
             </button>
             <div class="absolute rounded-md bg-gray-400 dark:bg-gray-800 w-full flex flex-col justify-center my-2">
                 <div v-if="loaders.search">
-                    <svg class="animate-spin fill-gray-800 dark:fill-gray-200" width="30px" height="30px"
+                    <svg class="my-auto w-full animate-spin fill-gray-800 dark:fill-gray-200" width="30px" height="30px"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path
                             d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z" />
@@ -23,10 +23,10 @@
                     <div v-on:click="openUser(curUser.name)"
                         class="flex flex-row dark:hover:bg-gray-700 rounded-md my-1 ml-1 w-11/12 items-center space-x-1">
                         <div class="h-[30px] w-[30px] mr-1 relative overflow-hidden inline-block rounded-full">
-                            <img v-if="!curUser.userPicture" class="bg-center block absolute w-full h-full"
+                            <img v-if="!curUser.picture" class="bg-center block absolute w-full h-full"
                                 src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
                                 alt="bgImg">
-                            <img v-else class="bg-center block absolute w-full" v-bind:src="curUser.userPicture"
+                            <img v-else class="bg-center block absolute h-full" v-bind:src="curUser.picture"
                                 alt="bgImg">
                         </div>
                         <p class="dark:text-gray-300 truncate max-w-[100px]">{{ curUser.name }}</p>
@@ -61,9 +61,14 @@ export default {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 })).json();
-                this.users = res;
-                console.log(this.users);
-                this.loaders.search = false;
+
+                if (res.error) {
+                    this.users = [];
+                    this.loaders.search = false;
+                } else {
+                    this.users = res;
+                    this.loaders.search = false;
+                }
             } else {
                 this.users = [];
             }

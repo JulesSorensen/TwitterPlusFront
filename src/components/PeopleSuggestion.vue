@@ -6,10 +6,10 @@
                 v-for="curUser in users" :key="curUser.id">
                 <div v-on:click="openUser(curUser.name)" class="flex flex-row w-40 items-center space-x-1">
                     <div class="h-[30px] w-[30px] mr-1 relative overflow-hidden inline-block rounded-full">
-                        <img v-if="!curUser.userPicture" class="bg-center block absolute w-full h-full"
+                        <img v-if="!curUser.picture" class="bg-center block absolute w-full h-full"
                             src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
                             alt="bgImg">
-                        <img v-else class="bg-center block absolute w-full" v-bind:src="curUser.userPicture"
+                        <img v-else class="bg-center block absolute h   -full" v-bind:src="curUser.picture"
                             alt="bgImg">
                     </div>
                     <p class="dark:text-gray-300 truncate max-w-[100px]">{{ curUser.name }}</p>
