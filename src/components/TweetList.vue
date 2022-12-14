@@ -58,7 +58,7 @@ export default {
 
 @media (max-width: 768px) {
     body {
-        overflow-y: hidden;
+        overflow: hidden;
     }
 }
 </style>

@@ -5,7 +5,7 @@
       <img src="../assets/logo/icon.png" alt="TwitterPlus" class="w-[50px] mx-3 mt-1 hidden lg:block">
       <LeftMenu />
     </div>
-    <div class="w-full flex flex-col mt-16 lg:px-10 lg:mt-0">
+    <div class="w-full flex flex-col h-full mt-16 pb-16 lg:px-10 lg:mt-0 lg:pb-0">
       <div v-if="loaders.tweets" class="flex justify-center items-center w-full h-full">
         <svg class="animate-spin fill-gray-800 dark:fill-gray-200" width="30px" height="30px"
           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

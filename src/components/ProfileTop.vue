@@ -2,7 +2,7 @@
     <div class="flex flex-col justify-center items-center w-full h-fit lg:py-5">
         <div class="w-full lg:w-3/4 h-24 relative overflow-hidden inline-block rounded-t-2xl">
             <img v-if="!!user.background" class="bg-center block absolute w-full" v-bind:src="user.background"
-                alt="bgImg">
+                alt="Background">
             <img v-else class="bg-center block absolute w-full"
                 src="https://img.freepik.com/free-vector/smooth-white-wave-background_52683-55288.jpg" alt="bgImg">
         </div>
@@ -12,18 +12,26 @@
                     class="absolute rounded-full border-4 border-gray-100 dark:border-gray-800 h-20 w-20 bg-white left-1 bottom-[-30px]">
                     <div class="relative overflow-hidden inline-block rounded-full h-full w-full">
                         <img v-if="!!user.picture" class="bg-center block absolute h-full" v-bind:src="user.picture"
-                            alt="Profile picture">
+                            alt="Picture">
                         <img v-else class="bg-center block absolute w-full"
                             src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
-                            alt="Profile picture">
+                            alt="Picture">
                     </div>
                 </div>
             </div>
             <div>
-                <div class="ml-24 text-3xl">
+                <div class="flex flex-row ml-24 text-3xl">
                     <h1 v-if="loading" class="font-bold dark:text-gray-300">{{ userName }}</h1>
                     <h1 v-else-if="invalidUser" class="font-bold dark:text-gray-300">Utilisateur invalide</h1>
                     <h1 v-else class="font-bold dark:text-gray-300">{{ user.name }}</h1>
+                    <div v-if="user.certification" class="flex flex-row">
+                        <div class="w-5 h-5 ml-1 my-auto">
+                            <img src="../assets/img/certif.png" alt="CERTIFIE">
+                        </div>
+                        <p v-if="user.certification === 1" class="text-xs font-semibold dark:text-gray-300">(Entreprise)</p>
+                        <p v-else-if="user.certification === 2" class="text-xs font-semibold dark:text-gray-300">(Personnalitée)</p>
+                        <p v-else-if="user.certification === 3" class="text-xs font-semibold dark:text-gray-300">(Musicien)</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,18 +39,20 @@
             <div class="flex flex-row items-center space-x-5">
                 <div class="ml-3">
                     <label for="picture" class="dark:text-blue-500">Photo de profil</label>
-                    <input id="picture" v-model="picture" type="picture" class="pl-2 rounded-lg shadow-md w-full">
+                    <input id="picture" v-model="picture" placeholder="Url de photo" type="picture"
+                        class="pl-2 rounded-lg shadow-md w-full">
                 </div>
                 <button v-on:click="changePicture"
-                        class="rounded-lg align-middle px-2 w-36 h-10 py-1 text-lg font-bold tansition-all duration-500 bg-green-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-green-800">Sauvegarder</button>
+                    class="rounded-lg align-middle px-2 w-36 h-10 py-1 text-lg font-bold tansition-all duration-500 bg-green-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-green-800">Sauvegarder</button>
             </div>
             <div class="flex flex-row items-center space-x-5">
                 <div class="ml-3">
                     <label for="banner" class="dark:text-blue-500">Bannière</label>
-                    <input id="banner" v-model="banner" type="banner" class="pl-2 rounded-lg shadow-md w-full">
+                    <input id="banner" v-model="banner" placeholder="Url de bannière" type="banner"
+                        class="pl-2 rounded-lg shadow-md w-full">
                 </div>
                 <button v-on:click="changeBackground"
-                        class="rounded-lg align-middle px-2 w-36 h-10 py-1 text-lg font-bold tansition-all duration-500 bg-green-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-green-800">Sauvegarder</button>
+                    class="rounded-lg align-middle px-2 w-36 h-10 py-1 text-lg font-bold tansition-all duration-500 bg-green-700 hover:tracking-wider hover:bg-white dark:text-white dark:hover:bg-green-800">Sauvegarder</button>
             </div>
         </div>
         <div v-if="!invalidUser" class="bg-gray-200 dark:bg-gray-800/50 w-full lg:w-3/4">
@@ -84,8 +94,8 @@ export default {
     data() {
         return {
             isEditionMode: false,
-            picture: this.user.picture,
-            banner: this.user.background
+            picture: null,
+            banner: null
         }
     },
     props: {

@@ -5,7 +5,7 @@
       <img src="../assets/logo/icon.png" alt="TwitterPlus" class="w-[50px] mx-3 mt-1 hidden lg:block">
       <LeftMenu />
     </div>
-    <div class="w-full flex flex-col mt-16 lg:mt-0">
+    <div class="w-full h-full flex flex-col mt-16 pb-16 lg:mt-0 lg:pb-0">
       <TweetCreation :postTweet="postTweet" :isComment="false" />
       <TweetListBar :followOnly="followOnly" :toggleFollowOnly="toggleFollowOnly" :reloadTweets="reloadTweets" />
       <div v-if="loaders.tweets" class="flex justify-center items-center w-full h-full">

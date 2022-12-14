@@ -5,7 +5,7 @@
       <img src="../assets/logo/icon.png" alt="TwitterPlus" class="w-[50px] mx-3 mt-1 hidden lg:block">
       <LeftMenu />
     </div>
-    <div class="flex flex-col w-full mt-16 lg:mt-0">
+    <div class="w-full h-full flex flex-col mt-16 pb-16 lg:mt-0">
       <ProfileTop :invalidUser="invalidUser" :loading="loaders.profile" :user="account" :userName="userName"
         :subscribeToUser="subscribeToUser" :unsubscribeToUser="unsubscribeToUser" :updatePicture="updatePicture" />
       <div v-if="loaders.tweets" class="flex justify-center items-center w-full h-full">
@@ -15,7 +15,7 @@
             d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z" />
         </svg>
       </div>
-      <TweetList :tweets="tweets" :tweetDeleted="tweetDeleted" />
+      <TweetList v-else :tweets="tweets" :tweetDeleted="tweetDeleted" />
     </div>
   </div>
 </template>
